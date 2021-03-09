@@ -149,7 +149,7 @@
         </header>
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <form id="contact-form" method="post" action="">
+            <form id="contact-form" method="post" data-netlify="true">
               <div class="messages"></div>
               <div class="controls">
                 <div class="row">
@@ -206,5 +206,20 @@
     <script src="vendor/jquery.counterup/jquery.counterup.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"> </script>
     <script src="js/front.js"></script>
+    <script>
+      document.querySelector("form").addEventListener("submit", handleSubmit);
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+  let myForm = document.getElementById('name');
+  let formData = new FormData(myForm)
+  fetch('/', {
+    method: 'POST',
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString()
+  }).then(() => console.log('Form successfully submitted')).catch((error) =>
+    alert(error))
+}
+    </script>
   </body>
 </html>
